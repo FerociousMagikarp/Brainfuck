@@ -71,6 +71,9 @@ namespace bf::trivial
         bool match_left_bracket(const std::string& script, size& cur_index);
         bool match_right_bracket(const std::string& script, size& cur_index);
 
+        void putio(char c);
+        char getio();
+
     private:
         Paper m_paper;
         std::stack<size> m_left_bracket_st;

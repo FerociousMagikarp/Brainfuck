@@ -1,5 +1,5 @@
 #include "bf_trivial.h"
-#include <stdio.h>
+#include <conio.h>
 
 namespace bf::trivial
 {
@@ -87,8 +87,8 @@ namespace bf::trivial
                 case '<': m_paper.prev(); break;
                 case '+': m_paper.plus(); break;
                 case '-': m_paper.substract(); break;
-                case '.': putchar(m_paper.get()); break;
-                case ',': m_paper.set(static_cast<char>(getchar())); break;
+                case '.': putio(m_paper.get()); break;
+                case ',': m_paper.set(getio()); break;
                 case '[': if (!match_left_bracket(script, i)) return ExecStatus::UnmatchedRightBracket; break;
                 case ']': if (!match_right_bracket(script, i)) return ExecStatus::UnmatchedRightBracket; break;
                 default: break;
@@ -124,7 +124,6 @@ namespace bf::trivial
                 if (left_bracket_count == 0)
                 {
                     index = j;
-                    m_left_bracket_st.pop();
                     return true;
                 }
                 else
@@ -150,5 +149,24 @@ namespace bf::trivial
         index = m_left_bracket_st.top();
         return true;
     }
+
+    void Interpreter::putio(char c)
+    {
+#ifdef _MSC_VER
+        _putch(c);
+#else
+        putch(c);
+#endif
+    }
+
+    char Interpreter::getio()
+    {
+#ifdef _MSC_VER
+        return static_cast<char>(_getch());
+#else
+        return static_cast<char>(getch());
+#endif
+    }
+
 }
 
